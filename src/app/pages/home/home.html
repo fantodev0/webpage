@@ -1,0 +1,558 @@
+<script type="application/ld+json">
+  {{ '{"@context":"https://schema.org","@type":"Person","name":"Lucien Siani","url":"https://fanto.dev","sameAs":["https://github.com/fantodev0","https://linkedin.com/in/placeholder"]}' }}
+</script>
+<section class="border-b border-line sm:grid sm:grid-cols-[1fr_42%]">
+  <div class="py-[75px] sm:self-center sm:py-[100px] sm:pr-[8%]">
+    <img
+      class="mb-7 size-[118px] rounded-full border border-line object-cover sm:size-[150px]"
+      [ngSrc]="profile.imagePath"
+      width="541"
+      height="495"
+      priority
+      alt="Portrait of Lucien Siani"
+    />
+    <p class="mb-6 text-[10px] font-bold uppercase tracking-[0.11em] text-muted">
+      {{ locale === 'de' ? 'Hallo, ich bin' : 'Hello, I am' }}
+    </p>
+    <h1
+      class="mb-[23px] text-[clamp(54px,8vw,104px)] leading-[0.95] font-[650] tracking-[-0.085em]"
+    >
+      Lucien Siani<span class="text-accent">.</span>
+    </h1>
+    <p class="mb-[35px] max-w-[430px] text-[15px] text-muted sm:text-[17px]">
+      {{
+        locale === 'de'
+          ? 'Ein Platzhalter für eine kurze, klare Beschreibung als Entwickler und Builder.'
+          : 'A placeholder for a short, clear description as a developer and builder.'
+      }}
+    </p>
+    <div class="flex items-center gap-7">
+      <a
+        class="inline-flex items-center gap-[18px] bg-ink px-[17px] py-[13px] text-xs font-bold text-paper transition duration-200 hover:-translate-y-0.5 focus-visible:outline-accent"
+        href="mailto:hello@fanto.dev"
+        ><app-lucide name="mail" [size]="17" />{{
+          locale === 'de' ? 'Kontakt aufnehmen' : 'Get in touch'
+        }}
+        <app-lucide name="arrow-up-right" [size]="17"
+      /></a>
+      <a
+        class="inline-flex items-center gap-2.5 border-b border-muted pb-[3px] text-xs font-bold transition-colors hover:border-ink focus-visible:outline-accent"
+        [routerLink]="['/', locale, 'writing']"
+        >{{ locale === 'de' ? 'Zum Writing' : 'Read the writing' }}
+        <app-lucide name="arrow-up-right" [size]="17"
+      /></a>
+    </div>
+    <div class="mt-[70px] flex items-center gap-[18px] border-t border-line pt-[18px]">
+      <span class="mr-auto text-[10px] font-bold uppercase tracking-[0.11em] text-muted">{{
+        locale === 'de' ? 'Finde mich hier' : 'Find me here'
+      }}</span>
+      <a
+        class="grid size-[37px] place-items-center rounded-full border border-line text-muted transition duration-200 hover:-translate-y-0.5 hover:border-ink hover:text-ink focus-visible:outline-accent"
+        href="https://github.com/fantodev0"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="GitHub profile"
+        ><app-lucide name="github" [size]="21"
+      /></a>
+      <a
+        class="grid size-[37px] place-items-center rounded-full border border-line text-muted transition duration-200 hover:-translate-y-0.5 hover:border-ink hover:text-ink focus-visible:outline-accent"
+        href="https://linkedin.com/in/placeholder"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="LinkedIn placeholder"
+        ><app-lucide name="linkedin" [size]="21"
+      /></a>
+      <a
+        class="grid size-[37px] place-items-center rounded-full border border-line text-muted transition duration-200 hover:-translate-y-0.5 hover:border-ink hover:text-ink focus-visible:outline-accent"
+        href="mailto:hello@fanto.dev"
+        aria-label="Email Lucien"
+        ><app-lucide name="mail" [size]="21"
+      /></a>
+    </div>
+  </div>
+  <div
+    class="relative grid min-h-[330px] place-items-center overflow-hidden bg-accent font-sans text-[300px] leading-[0.6] font-black text-accent-ink sm:min-h-[500px] sm:text-[clamp(300px,39vw,490px)]"
+    aria-label="F monogram"
+  >
+    <span
+      class="absolute top-[34%] left-[26%] -skew-y-[9deg] rotate-[7deg] text-transparent opacity-50 [-webkit-text-stroke:3px_var(--accent-ink)]"
+      >F</span
+    >
+    <span
+      class="absolute top-[31%] left-[22%] z-[2] -skew-y-[9deg] rotate-[7deg] [text-shadow:22px_25px_0_#849012]"
+      >F</span
+    >
+    <i
+      class="absolute top-[26%] left-[12%] z-[3] h-px w-[70%] rotate-[-12deg] bg-accent-ink opacity-40"
+    ></i>
+    <i
+      class="absolute top-[64%] left-[30%] z-[3] h-px w-[52%] rotate-[-12deg] bg-accent-ink opacity-40"
+    ></i>
+    <i
+      class="absolute top-[75%] -left-[4%] z-[3] h-px w-[45%] rotate-[-12deg] bg-accent-ink opacity-40"
+    ></i>
+  </div>
+</section>
+
+<section
+  class="-mx-4 border-b border-line px-4 sm:-mx-7 sm:px-7"
+  id="github"
+  aria-labelledby="github-heading"
+>
+  <div class="py-8 sm:py-10">
+    @if (githubContributions(); as contributions) {
+      <div class="overflow-x-auto pb-3">
+        <div
+          class="mx-auto w-fit min-w-[900px]"
+          role="img"
+          [attr.aria-label]="contributions.total + ' GitHub contributions in the last year'"
+        >
+          <div class="relative ml-9 h-5">
+            @for (month of contributions.months; track month.label + month.column) {
+              <span
+                class="absolute top-0 font-mono text-[10px] tracking-[0.04em] text-muted uppercase"
+                [style.left.px]="month.column * 17"
+                >{{ month.label }}</span
+              >
+            }
+          </div>
+          <div class="grid grid-cols-[28px_1fr] gap-2">
+            <div
+              class="flex h-[115px] flex-col justify-around font-mono text-[10px] text-muted"
+              aria-hidden="true"
+            >
+              <span>Mon</span><span>Wed</span><span>Fri</span>
+            </div>
+            <div class="grid grid-flow-col auto-cols-[13px] grid-rows-7 gap-1">
+              @for (day of contributions.days; track day.date) {
+                <span
+                  class="size-[13px] rounded-[2px]"
+                  [style.background-color]="contributionLevelColors[day.level]"
+                  [attr.title]="
+                    day.count +
+                    (day.count === 1 ? ' contribution on ' : ' contributions on ') +
+                    day.date
+                  "
+                ></span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center justify-between gap-5 text-sm text-muted">
+        <p>
+          {{ contributions.total | number }}
+          {{
+            locale === 'de' ? 'Beiträge im letzten Jahr auf' : 'contributions in the last year on'
+          }}
+          <a
+            class="text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-accent"
+            [href]="'https://github.com/' + profile.githubUsername"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >.
+        </p>
+        <div class="flex items-center gap-1.5" aria-label="Contribution activity: less to more">
+          <span class="mr-1 text-xs">{{ locale === 'de' ? 'Weniger' : 'Less' }}</span>
+          @for (color of contributionLevelColors; track color) {
+            <span class="size-[13px] rounded-[2px]" [style.background-color]="color"></span>
+          }
+          <span class="ml-1 text-xs">{{ locale === 'de' ? 'Mehr' : 'More' }}</span>
+        </div>
+      </div>
+    } @else if (githubContributionLoadFailed()) {
+      <p class="text-sm text-muted">
+        {{
+          locale === 'de'
+            ? 'Die Live-Aktivität ist gerade nicht verfügbar.'
+            : 'Live activity is temporarily unavailable.'
+        }}
+        <a
+          class="text-ink underline decoration-line underline-offset-4 focus-visible:outline-accent"
+          [href]="'https://github.com/' + profile.githubUsername"
+          target="_blank"
+          rel="noreferrer"
+          >{{ locale === 'de' ? 'Auf GitHub ansehen' : 'View it on GitHub' }} ↗</a
+        >
+      </p>
+    } @else {
+      <div class="h-[152px] animate-pulse bg-soft-line/60"></div>
+      <p class="mt-4 text-sm text-muted">
+        {{ locale === 'de' ? 'Aktivität wird geladen…' : 'Loading activity…' }}
+      </p>
+    }
+  </div>
+</section>
+
+<section
+  class="-mx-4 border-b border-line px-4 [&_h2]:text-[clamp(32px,3.5vw,46px)] [&_h3]:text-[20px] [&_p]:text-[15px] [&_strong]:text-[20px] sm:-mx-7 sm:px-7 sm:[&_h3]:text-[24px] sm:[&_p]:text-base sm:[&_strong]:text-[23px]"
+  id="about"
+>
+  <div
+    class="-mx-4 h-5 border-y border-soft-line bg-[repeating-linear-gradient(135deg,transparent_0_12px,var(--soft-line)_12px_13px,transparent_13px_20px)] sm:-mx-7"
+    aria-hidden="true"
+  ></div>
+  <div class="border-b border-line pt-[27px] pb-5 sm:pt-[31px] sm:pb-6">
+    <h2 class="text-[clamp(42px,5vw,62px)] leading-[1.02] font-semibold tracking-[-0.075em]">
+      {{ locale === 'de' ? 'Über mich' : 'About me' }}<span class="text-accent">.</span>
+    </h2>
+  </div>
+  <div
+    class="py-[30px] pb-[34px] sm:grid sm:grid-cols-[27%_1fr] sm:gap-6 sm:py-[52px] sm:pb-[55px]"
+  >
+    <div
+      class="mb-[26px] flex items-start gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+    >
+      <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">01</span
+      ><strong class="font-normal">{{ locale === 'de' ? 'Über mich' : 'About me' }}</strong>
+    </div>
+    <div class="max-w-[900px]">
+      <h3 class="mb-[18px] text-[25px] tracking-[-0.055em] sm:text-[31px]">
+        {{
+          locale === 'de'
+            ? 'Digitale Dinge mit Sorgfalt bauen.'
+            : 'Building digital things with care.'
+        }}
+      </h3>
+      <p
+        class="mb-[14px] max-w-[850px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]"
+      >
+        {{
+          locale === 'de'
+            ? 'Dieser Text ist ein gut sichtbarer Platzhalter für Luciens Biografie. Erzähle hier, woran du glaubst, welche Probleme du löst und was dich antreibt.'
+            : 'This is a conspicuous placeholder for Lucien’s biography. Tell people what you believe in, which problems you solve, and what keeps you curious.'
+        }}
+      </p>
+      <p class="max-w-[850px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
+        {{
+          locale === 'de'
+            ? 'Der zweite Absatz kann Erfahrungen, Arbeitsweise und ein wenig Persönlichkeit aufnehmen.'
+            : 'A second paragraph can hold experience, working style, and a little personality.'
+        }}
+      </p>
+    </div>
+  </div>
+  <div
+    class="-mx-4 h-5 border-y border-soft-line bg-[repeating-linear-gradient(135deg,transparent_0_12px,var(--soft-line)_12px_13px,transparent_13px_20px)] sm:-mx-7"
+    aria-hidden="true"
+  ></div>
+</section>
+
+<section
+  class="-mx-4 border-b border-line px-4 [&_h2]:text-[clamp(32px,3.5vw,46px)] [&_p]:text-sm [&_strong]:text-[20px] sm:-mx-7 sm:px-7 sm:[&_p]:text-base sm:[&_strong]:text-[23px]"
+  id="projects"
+>
+  <div class="border-b border-line pt-[27px] pb-5 sm:pt-[31px] sm:pb-6">
+    <h2 class="text-[clamp(42px,5vw,62px)] leading-[1.02] font-semibold tracking-[-0.075em]">
+      {{ locale === 'de' ? 'Ausgewählte Arbeit' : 'Selected work'
+      }}<span class="text-accent">.</span>
+    </h2>
+  </div>
+  <div class="border-b border-line">
+    <article
+      class="grid grid-cols-[1fr_25px] items-start gap-5 border-b border-line py-7 transition-[padding] sm:grid-cols-[27%_1fr_30px] sm:gap-6 sm:py-9 sm:hover:pl-2.5"
+    >
+      <div
+        class="col-span-full flex items-start gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:col-auto sm:text-[27px]"
+      >
+        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">01</span
+        ><strong class="font-normal">Project Placeholder</strong>
+      </div>
+      <div>
+        <p class="mb-5 text-base text-muted sm:text-lg">
+          {{
+            locale === 'de'
+              ? 'Eine kurze Projektbeschreibung – ersetze diesen Text durch deine Arbeit.'
+              : 'A short project description — replace this with your own work.'
+          }}
+        </p>
+        <div class="flex flex-wrap gap-[9px]">
+          <span
+            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
+            >Angular</span
+          ><span
+            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
+            >TypeScript</span
+          ><span
+            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
+            >01 / 03</span
+          >
+        </div>
+      </div>
+      <span class="text-xl">↗</span>
+    </article>
+    <article
+      class="grid grid-cols-[1fr_25px] items-start gap-5 border-b border-line py-7 transition-[padding] sm:grid-cols-[27%_1fr_30px] sm:gap-6 sm:py-9 sm:hover:pl-2.5"
+    >
+      <div
+        class="col-span-full flex items-start gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:col-auto sm:text-[27px]"
+      >
+        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">02</span
+        ><strong class="font-normal">Another Experiment</strong>
+      </div>
+      <div>
+        <p class="mb-5 text-base text-muted sm:text-lg">
+          {{
+            locale === 'de'
+              ? 'Platzhalter für ein Produkt, ein Experiment oder einen Case Study Link.'
+              : 'Placeholder for a product, experiment, or case study link.'
+          }}
+        </p>
+        <div class="flex flex-wrap gap-[9px]">
+          <span
+            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
+            >Design systems</span
+          ><span
+            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
+            >Web</span
+          ><span
+            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
+            >02 / 03</span
+          >
+        </div>
+      </div>
+      <span class="text-xl">↗</span>
+    </article>
+    <article
+      class="grid grid-cols-[1fr_25px] items-start gap-5 py-7 opacity-[0.52] sm:grid-cols-[27%_1fr_30px] sm:gap-6 sm:py-9"
+    >
+      <div
+        class="col-span-full flex items-start gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:col-auto sm:text-[27px]"
+      >
+        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">03</span
+        ><strong class="font-normal">Coming soon</strong>
+      </div>
+      <div>
+        <p class="mb-5 text-base text-muted sm:text-lg">
+          {{ locale === 'de' ? 'Weitere Projekte folgen.' : 'More projects coming soon.' }}
+        </p>
+        <div class="flex flex-wrap gap-[9px]">
+          <span
+            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
+            >Placeholder</span
+          >
+        </div>
+      </div>
+      <span class="text-xl">→</span>
+    </article>
+  </div>
+</section>
+
+<section
+  class="-mx-4 border-b border-line px-4 [&_h2]:text-[clamp(32px,3.5vw,46px)] [&_strong]:text-[20px] [&_div.flex.flex-wrap_span]:text-xs sm:-mx-7 sm:px-7 sm:[&_strong]:text-[23px] sm:[&_div.flex.flex-wrap_span]:text-sm"
+  id="stack"
+>
+  <div
+    class="-mx-4 h-5 border-y border-soft-line bg-[repeating-linear-gradient(135deg,transparent_0_12px,var(--soft-line)_12px_13px,transparent_13px_20px)] sm:-mx-7"
+    aria-hidden="true"
+  ></div>
+  <div class="border-b border-line pt-[27px] pb-5 sm:pt-[31px] sm:pb-6">
+    <h2 class="text-[clamp(42px,5vw,62px)] leading-[1.02] font-semibold tracking-[-0.075em]">
+      Stack<span class="text-accent">.</span>
+    </h2>
+  </div>
+  <div class="border-b border-line">
+    <div
+      class="border-b border-line py-[27px] pb-[30px] sm:grid sm:min-h-[130px] sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
+    >
+      <div
+        class="mb-5 flex items-center gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+      >
+        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">01</span
+        ><strong class="font-normal">{{ locale === 'de' ? 'Sprachen' : 'Languages' }}</strong>
+      </div>
+      <div class="flex flex-wrap items-center gap-2.5">
+        <span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >TypeScript</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >JavaScript</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >PHP</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Go</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Bash</span
+        >
+      </div>
+    </div>
+    <div
+      class="border-b border-line py-[27px] pb-[30px] sm:grid sm:min-h-[130px] sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
+    >
+      <div
+        class="mb-5 flex items-center gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+      >
+        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">02</span
+        ><strong class="font-normal">Frontend</strong>
+      </div>
+      <div class="flex flex-wrap items-center gap-2.5">
+        <span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Angular</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >React</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Tailwind CSS</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >React Native</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Svelte</span
+        >
+      </div>
+    </div>
+    <div
+      class="border-b border-line py-[27px] pb-[30px] sm:grid sm:min-h-[130px] sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
+    >
+      <div
+        class="mb-5 flex items-center gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+      >
+        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">03</span
+        ><strong class="font-normal">Backend</strong>
+      </div>
+      <div class="flex flex-wrap items-center gap-2.5">
+        <span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Node.js</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >REST APIs</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >GraphQL</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Postgres</span
+        >
+      </div>
+    </div>
+    <div
+      class="py-[27px] pb-[30px] sm:grid sm:min-h-[130px] sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
+    >
+      <div
+        class="mb-5 flex items-center gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+      >
+        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">04</span
+        ><strong class="font-normal">{{ locale === 'de' ? 'Bereitstellung' : 'Delivery' }}</strong>
+      </div>
+      <div class="flex flex-wrap items-center gap-2.5">
+        <span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Testing</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >CI/CD</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Git</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Docker</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          >Figma</span
+        >
+      </div>
+    </div>
+  </div>
+  <div
+    class="-mx-4 h-5 border-y border-soft-line bg-[repeating-linear-gradient(135deg,transparent_0_12px,var(--soft-line)_12px_13px,transparent_13px_20px)] sm:-mx-7"
+    aria-hidden="true"
+  ></div>
+</section>
+
+<section
+  class="-mx-4 border-b border-line px-4 [&_h2]:text-[clamp(32px,3.5vw,46px)] [&_h3]:text-[20px] [&_p]:text-[15px] sm:-mx-7 sm:px-7 sm:[&_h3]:text-[24px] sm:[&_p]:text-base"
+  id="faq"
+>
+  <div class="border-b border-line pt-[27px] pb-5 sm:pt-[31px] sm:pb-6">
+    <h2 class="text-[clamp(42px,5vw,62px)] leading-[1.02] font-semibold tracking-[-0.075em]">
+      FAQ
+    </h2>
+  </div>
+  <div class="border-b border-line">
+    <article class="border-b border-line py-7 sm:py-[38px] sm:pb-9">
+      <h3 class="mb-4 text-[23px] tracking-[-0.045em] sm:text-[28px]">
+        {{ locale === 'de' ? 'Wer ist Lucien Siani?' : 'Who is Lucien Siani?' }}
+      </h3>
+      <p class="max-w-[1080px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
+        {{
+          locale === 'de'
+            ? 'Lucien Siani ist ein Platzhalter für einen Full-Stack-Entwickler. Ersetze diese Antwort durch deine Biografie, Erfahrung und aktuelle Mission.'
+            : 'Lucien Siani is a placeholder for a full-stack developer. Replace this answer with your biography, experience, and current mission.'
+        }}
+      </p>
+    </article>
+    <article class="border-b border-line py-7 sm:py-[38px] sm:pb-9">
+      <h3 class="mb-4 text-[23px] tracking-[-0.045em] sm:text-[28px]">
+        {{
+          locale === 'de'
+            ? 'Mit welchen Technologien arbeitest du?'
+            : 'What technologies do you work with?'
+        }}
+      </h3>
+      <p class="max-w-[1080px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
+        {{
+          locale === 'de'
+            ? 'Ich arbeite hauptsächlich mit TypeScript, Angular, Node.js und modernen Webplattformen. Ergänze hier deine echten Schwerpunkte.'
+            : 'I primarily work with TypeScript, Angular, Node.js, and modern web platforms. Add your real areas of expertise here.'
+        }}
+      </p>
+    </article>
+    <article class="py-7 sm:py-[38px] sm:pb-9">
+      <h3 class="mb-4 text-[23px] tracking-[-0.045em] sm:text-[28px]">
+        {{
+          locale === 'de'
+            ? 'Bist du für Remote-Arbeit verfügbar?'
+            : 'Are you available for remote work?'
+        }}
+      </h3>
+      <p class="max-w-[1080px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
+        {{
+          locale === 'de'
+            ? 'Platzhalter für Verfügbarkeit, Zeitzone und bevorzugte Zusammenarbeit. Ersetze diesen Text mit deinen aktuellen Bedingungen.'
+            : 'Placeholder for availability, timezone, and preferred collaboration. Replace this with your current terms.'
+        }}
+      </p>
+    </article>
+  </div>
+  <div
+    class="-mx-4 h-5 border-y border-soft-line bg-[repeating-linear-gradient(135deg,transparent_0_12px,var(--soft-line)_12px_13px,transparent_13px_20px)] sm:-mx-7"
+    aria-hidden="true"
+  ></div>
+</section>
+
+<section class="border-b border-line pb-[95px] [&_h2]:text-[clamp(26px,3vw,42px)] [&_a]:text-xl">
+  <div class="flex items-center justify-between pt-[60px] sm:items-end sm:pt-[78px]">
+    <div>
+      <h2
+        class="mb-[13px] text-[clamp(31px,4vw,55px)] leading-[1.02] font-semibold tracking-[-0.065em]"
+      >
+        Writing<span class="text-accent">.</span>
+      </h2>
+      <p class="text-muted">
+        {{
+          locale === 'de'
+            ? 'Notizen aus dem Maschinenraum — Technik, Systeme und Dinge, die ich unterwegs lerne.'
+            : 'Notes from the engine room — technology, systems, and things I learn along the way.'
+        }}
+      </p>
+    </div>
+    <a
+      class="grid size-[66px] shrink-0 place-items-center rounded-full border border-ink text-2xl transition-colors hover:bg-ink hover:text-paper focus-visible:outline-accent"
+      [routerLink]="['/', locale, 'writing']"
+      aria-label="Read writing"
+      >↗</a
+    >
+  </div>
+</section>
+
+<app-site-footer [locale]="locale" />
