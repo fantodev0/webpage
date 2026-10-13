@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://fanto.dev/en</loc><xhtml:link rel="alternate" hreflang="de" href="https://fanto.dev/de"/></url>
+  <url><loc>https://fanto.dev/de</loc><xhtml:link rel="alternate" hreflang="en" href="https://fanto.dev/en"/></url>
+  <url><loc>https://fanto.dev/en/writing</loc><xhtml:link rel="alternate" hreflang="de" href="https://fanto.dev/de/writing"/></url>
+  <url><loc>https://fanto.dev/de/writing</loc><xhtml:link rel="alternate" hreflang="en" href="https://fanto.dev/en/writing"/></url>
+  <url><loc>https://fanto.dev/en/writing/setting-up-a-k3s-cluster</loc><xhtml:link rel="alternate" hreflang="de" href="https://fanto.dev/de/writing/setting-up-a-k3s-cluster"/></url>
+  <url><loc>https://fanto.dev/de/writing/setting-up-a-k3s-cluster</loc><xhtml:link rel="alternate" hreflang="en" href="https://fanto.dev/en/writing/setting-up-a-k3s-cluster"/></url>
+</urlset>
