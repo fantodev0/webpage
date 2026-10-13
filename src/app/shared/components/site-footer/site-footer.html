@@ -1,0 +1,31 @@
+<footer class="mt-5 pt-[30px] pb-[18px] sm:mt-[50px]">
+  <div class="flex items-center justify-between">
+    <span class="text-[10px] font-bold uppercase tracking-[0.11em] text-muted">{{
+      locale() === 'de' ? 'Bleib neugierig' : 'Stay curious'
+    }}</span>
+    <a
+      class="inline-flex items-center gap-[9px] text-sm font-[650] transition-colors hover:text-muted focus-visible:outline-accent"
+      href="mailto:hello@fanto.dev"
+      ><app-lucide name="mail" [size]="17" /> hello&#64;fanto.dev
+      <span class="ml-5 text-muted">↗</span></a
+    >
+  </div>
+  <div
+    class="-mx-4 mt-12 flex h-[clamp(150px,25vw,360px)] items-end justify-center overflow-hidden text-center sm:-mx-7 sm:mt-[55px]"
+    aria-label="FantoDev"
+  >
+    <span
+      class="translate-y-[0.17em] bg-linear-to-b from-ink/40 via-ink/20 to-transparent bg-clip-text text-[clamp(110px,22vw,330px)] leading-none font-extrabold tracking-[-0.12em] text-transparent"
+      >FantoDev</span
+    >
+  </div>
+  <div
+    class="flex flex-col items-start gap-5 border-t border-line pt-[17px] text-[10px] tracking-[0.04em] text-muted uppercase sm:flex-row sm:items-center sm:justify-between"
+  >
+    <span
+      >© 2025 FantoDev ·
+      {{ locale() === 'de' ? 'Alle Platzhalter vorbehalten' : 'All placeholders reserved' }}</span
+    >
+    <span>{{ locale() === 'de' ? 'Gebaut mit Neugier' : 'Built with curiosity' }}</span>
+  </div>
+</footer>
