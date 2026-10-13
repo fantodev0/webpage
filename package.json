@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prebuild": "pnpm generate:blog",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:webpage": "node dist/webpage/server/server.mjs"
+    "test": "ng test --watch=false --headless",
+    "serve:ssr:webpage": "node dist/webpage/server/server.mjs",
+    "generate:blog": "node scripts/generate-blog.mjs && prettier --write src/app/core/data/blog-data.ts"
   },
   "private": true,
   "packageManager": "pnpm@12.11.2",
@@ -16,6 +18,7 @@
     "@angular/compiler": "^22.2.0",
     "@angular/core": "^22.2.0",
     "@angular/forms": "^22.2.0",
+    "@angular/localize": "^22.2.2",
     "@angular/platform-browser": "^22.2.0",
     "@angular/platform-server": "^22.2.0",
     "@angular/router": "^22.2.0",
