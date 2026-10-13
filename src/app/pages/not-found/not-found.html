@@ -1,0 +1,19 @@
+<section class="min-h-[480px] border-b border-line py-[130px]">
+  <span class="mb-6 block text-[10px] font-bold uppercase tracking-[0.11em] text-muted">404</span>
+  <h1 class="mb-[23px] text-[clamp(54px,8vw,104px)] leading-[0.95] font-[650] tracking-[-0.085em]">
+    {{ locale === 'de' ? 'Diese Seite ist nicht hier.' : 'This page is not here.' }}
+  </h1>
+  <p class="text-muted">
+    {{
+      locale === 'de'
+        ? 'Der Link war vielleicht ein Platzhalter.'
+        : 'The link may have been a placeholder.'
+    }}
+  </p>
+  <a
+    class="mt-5 inline-flex items-center gap-[18px] bg-ink px-[17px] py-[13px] text-xs font-bold text-paper transition duration-200 hover:-translate-y-0.5 focus-visible:outline-accent"
+    [routerLink]="['/', locale]"
+    >{{ locale === 'de' ? 'Zur Startseite' : 'Back home' }} ↗</a
+  >
+</section>
+<app-site-footer [locale]="locale" />
