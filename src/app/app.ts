@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs';
-import { getLocale, type Locale, type Theme } from './core/types/locale';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { PRIMARY_OUTLET, Router, RouterLink, RouterOutlet, UrlTree } from '@angular/router';
+import { LocaleService } from './core/services/locale.service';
+import { type Locale, type Theme } from './core/types/locale';
 import { LucideIcon } from './shared/components/lucide-icon/lucide-icon';
 
 @Component({
@@ -14,21 +14,14 @@ import { LucideIcon } from './shared/components/lucide-icon/lucide-icon';
 export class App {
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
-  private readonly destroyRef = inject(DestroyRef);
-  readonly locale = signal<Locale>('en');
+  private readonly localeService = inject(LocaleService);
+  readonly locale = this.localeService.locale;
   readonly theme = signal<Theme>('light');
 
   constructor() {
-    const updateLocale = (url: string) => {
-      const locale = getLocale(url.split('/')[1]);
-      this.locale.set(locale);
-      this.document.documentElement.lang = locale;
-    };
-    updateLocale(this.router.url);
-    const subscription = this.router.events
-      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
-      .subscribe((event) => updateLocale(event.urlAfterRedirects));
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+    effect(() => {
+      this.document.documentElement.lang = this.locale();
+    });
   }
 
   setTheme(theme: Theme) {
@@ -37,7 +30,20 @@ export class App {
     if (typeof localStorage !== 'undefined') localStorage.setItem('fanto-theme', theme);
   }
 
-  languageUrl(locale: Locale): string {
-    return `/${locale}${this.router.url.replace(/^\/(en|de)/, '')}`;
+  languageUrl(locale: Locale): UrlTree {
+    const currentUrl = this.router.parseUrl(this.router.url);
+    const primarySegments = currentUrl.root.children[PRIMARY_OUTLET]?.segments ?? [];
+    const remainingSegments =
+      primarySegments[0]?.path === 'en' || primarySegments[0]?.path === 'de'
+        ? primarySegments.slice(1)
+        : primarySegments;
+
+    return this.router.createUrlTree(
+      ['/', locale, ...remainingSegments.map((segment) => segment.path)],
+      {
+        fragment: currentUrl.fragment ?? undefined,
+        queryParams: currentUrl.queryParams,
+      },
+    );
   }
 }

@@ -1,20 +1,20 @@
 <div class="min-h-dvh">
   <header class="sticky top-0 z-10 border-b border-line bg-paper/90 backdrop-blur-[14px]">
     <div
-      class="mx-auto flex h-[54px] max-w-[1240px] items-center gap-[18px] px-4 sm:h-[58px] sm:gap-[50px] sm:px-7"
+      class="mx-auto flex h-13.5 max-w-310 items-center gap-4.5 px-4 sm:h-14.5 sm:gap-12.5 sm:px-7"
     >
       <a
-        class="inline-flex items-center gap-[9px] font-bold tracking-[-0.04em] focus-visible:outline-accent"
+        class="inline-flex items-center gap-2.25 font-bold tracking-[-0.04em] focus-visible:outline-accent"
         [routerLink]="['/', locale()]"
         aria-label="FantoDev home"
       >
         <span
-          class="grid size-[25px] place-items-center rounded bg-ink text-lg font-extrabold text-paper"
+          class="grid size-6.25 place-items-center rounded bg-ink text-lg font-extrabold text-paper"
           >f</span
         >
-        <span>fanto.dev</span>
+        <span class="hidden sm:block">fanto.dev</span>
       </a>
-      <nav class="flex gap-4 text-[13px] text-muted sm:gap-[30px]" aria-label="Main navigation">
+      <nav class="flex gap-4 text-[13px] text-muted sm:gap-7.5" aria-label="Main navigation">
         <a
           class="hidden transition-colors hover:text-ink focus-visible:outline-accent sm:inline"
           [routerLink]="['/', locale()]"
@@ -51,7 +51,7 @@
           aria-label="Color theme"
         >
           <button
-            class="grid h-5 w-[22px] cursor-pointer place-items-center rounded-full border-0 p-0 text-xs leading-none transition-colors"
+            class="grid h-5 w-5.5 cursor-pointer place-items-center rounded-full border-0 p-0 text-xs leading-none transition-colors"
             [class.bg-ink]="theme() === 'light'"
             [class.text-paper]="theme() === 'light'"
             [class.bg-transparent]="theme() !== 'light'"
@@ -63,7 +63,7 @@
             ☼
           </button>
           <button
-            class="grid h-5 w-[22px] cursor-pointer place-items-center rounded-full border-0 p-0 text-xs leading-none transition-colors"
+            class="grid h-5 w-5.5 cursor-pointer place-items-center rounded-full border-0 p-0 text-xs leading-none transition-colors"
             [class.bg-ink]="theme() === 'dark'"
             [class.text-paper]="theme() === 'dark'"
             [class.bg-transparent]="theme() !== 'dark'"
@@ -101,5 +101,5 @@
     </div>
   </header>
 
-  <main class="mx-auto max-w-[1240px] px-4 sm:px-7"><router-outlet /></main>
+  <main class="mx-auto max-w-310 px-4 sm:px-7"><router-outlet /></main>
 </div>
