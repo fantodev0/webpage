@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { BLOG_POSTS } from '../../core/data/blog-data';
-import { getLocale, type Locale } from '../../core/types/locale';
+import { LocaleService } from '../../core/services/locale.service';
+import { SeoService } from '../../core/services/seo.service';
+import { type Locale } from '../../core/types/locale';
 import { SiteFooter } from '../../shared/components/site-footer/site-footer';
 
 @Component({
@@ -12,22 +13,33 @@ import { SiteFooter } from '../../shared/components/site-footer/site-footer';
   templateUrl: './writing.html',
 })
 export class WritingPage {
-  private readonly route = inject(ActivatedRoute);
-  private readonly title = inject(Title);
-  private readonly meta = inject(Meta);
-  readonly locale: Locale = getLocale(this.route.parent?.snapshot.paramMap.get('locale'));
-  readonly posts = BLOG_POSTS.filter((post) => post.locale === this.locale);
+  private readonly localeService = inject(LocaleService);
+  private readonly seo = inject(SeoService);
+
+  get locale(): Locale {
+    return this.localeService.locale();
+  }
+
+  get posts() {
+    return BLOG_POSTS.filter((post) => post.locale === this.locale);
+  }
 
   constructor() {
-    const pageTitle = this.locale === 'de' ? 'Writing — FantoDev' : 'Writing — FantoDev';
+    effect(() => this.updatePageMetadata(this.locale));
+  }
+
+  private updatePageMetadata(locale: Locale): void {
+    const pageTitle = 'Writing — FantoDev';
     const description =
-      this.locale === 'de'
+      locale === 'de'
         ? 'Notizen zu Technik, Systemen und dem Bauen im Web.'
         : 'Notes on technology, systems, and building for the web.';
-    this.title.setTitle(pageTitle);
-    this.meta.updateTag({ name: 'description', content: description });
-    this.meta.updateTag({ property: 'og:title', content: pageTitle });
-    this.meta.updateTag({ property: 'og:description', content: description });
+    this.seo.update({
+      title: pageTitle,
+      description,
+      locale,
+      path: `/${locale}/writing`,
+    });
   }
 
   formatDate(date: string) {
