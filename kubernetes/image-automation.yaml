@@ -34,16 +34,17 @@ spec:
   sourceRef:
     kind: GitRepository
     name: webpage-repo
-  checkout:
-    ref:
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: fluxcdbot
+        email: fluxcdbot@users.noreply.github.com
+      messageTemplate: 'chore(images): update webpage image'
+    push:
       branch: main
   update:
     path: ./kubernetes
     strategy: Setters
-  commit:
-    author:
-      name: fluxcdbot
-      email: fluxcdbot@users.noreply.github.com
-    messageTemplate: 'chore(images): update webpage image to {{range .Updated.Images}}{{.}}{{end}}'
-  push:
-    branch: main
