@@ -1,0 +1,49 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: webpage
+  namespace: flux-system
+spec:
+  image: registry.fanto.dev/fantodev0/webpage
+  interval: 1m0s
+  secretRef:
+    name: registry-fanto-dev
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: webpage
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: webpage
+  filterTags:
+    pattern: '^main-(?P<build>[0-9]+)$'
+    extract: '$build'
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: webpage
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: webpage-repo
+  checkout:
+    ref:
+      branch: main
+  update:
+    path: ./kubernetes
+    strategy: Setters
+  commit:
+    author:
+      name: fluxcdbot
+      email: fluxcdbot@users.noreply.github.com
+    messageTemplate: 'chore(images): update webpage image to {{range .Updated.Images}}{{.}}{{end}}'
+  push:
+    branch: main
