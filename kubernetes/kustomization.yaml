@@ -9,4 +9,4 @@ resources:
   - image-automation.yaml
 images:
   - name: registry.fanto.dev/fantodev0/webpage
-    newTag: main-1 # {"$imagepolicy": "flux-system:webpage:tag"}
+    newTag: main-2 # {"$imagepolicy": "flux-system:webpage:tag"}
