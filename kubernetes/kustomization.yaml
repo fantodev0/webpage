@@ -7,7 +7,6 @@ resources:
   - httproute.yaml
   - secret.yaml
   - image-automation.yaml
-
 images:
   - name: registry.fanto.dev/fantodev0/webpage
-    newTag: main-0 # {"$imagepolicy": "flux-system:webpage:tag"}
+    newTag: main-1 # {"$imagepolicy": "flux-system:webpage:tag"}
