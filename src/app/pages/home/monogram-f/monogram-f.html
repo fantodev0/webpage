@@ -1,0 +1,191 @@
+<button
+  class="group relative block h-full min-h-[720px] w-full cursor-default overflow-hidden bg-[var(--hero-bg)] text-left touch-manipulation select-none focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-[var(--hero-ink)] sm:min-h-[850px]"
+  type="button"
+  [attr.aria-label]="accessibleLabel()"
+  aria-describedby="monogram-f-instruction"
+  [attr.data-drop-state]="dropping() ? 'dropping' : settled() ? 'settled' : 'ready'"
+  [attr.data-impact]="impactActive() ? 'active' : null"
+  (click)="onButtonClick($event)"
+>
+  <span id="monogram-f-instruction" class="sr-only">{{ interactionHint() }}</span>
+  <svg
+    class="relative z-[1] block h-full min-h-[720px] w-full sm:min-h-[850px]"
+    viewBox="0 0 1280 820"
+    preserveAspectRatio="xMidYMid slice"
+    role="img"
+    aria-hidden="true"
+  >
+    <defs>
+      <pattern
+        id="monogram-hatch"
+        width="12"
+        height="12"
+        patternUnits="userSpaceOnUse"
+        patternTransform="rotate(-45)"
+      >
+        <line
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="12"
+          stroke="var(--hero-structure)"
+          stroke-width="1"
+          opacity="0.7"
+        />
+      </pattern>
+      <pattern id="monogram-grid" width="78" height="45" patternUnits="userSpaceOnUse">
+        <path
+          d="M-39 45 39 0 117 45M-39 0 39 45 117 0M39 0v45"
+          fill="none"
+          stroke="var(--hero-grid)"
+          stroke-width="1"
+        />
+      </pattern>
+    </defs>
+
+    <rect x="570" y="65" width="390" height="460" fill="var(--hero-bg)" />
+    <rect x="570" y="65" width="390" height="460" fill="url(#monogram-grid)" opacity="0.72" />
+    <path
+      d="M0 0H1280M0 820H1280M224 0V820M1056 0V820"
+      fill="none"
+      stroke="var(--hero-structure)"
+      stroke-width="1"
+    />
+
+    <g fill="none" stroke="var(--hero-muted)" stroke-width="1.5" opacity="0.9">
+      <path d="M610 100V420M602 100H618M602 420H618" />
+      <path d="M626 100H642M626 420H642" stroke-dasharray="4 6" opacity="0.6" />
+      <path d="M625 500H900M625 494v12M900 494v12" />
+      <path d="M625 500l8-4M625 500l8 4M892 496l8 4M892 504l8-4" />
+    </g>
+    <g fill="var(--hero-muted)" font-family="var(--sans)" font-size="14" letter-spacing="2.4">
+      <text x="596" y="260" transform="rotate(-90 596 260)" text-anchor="middle">200</text>
+      <text x="762" y="524" text-anchor="middle">280</text>
+    </g>
+
+    <!-- The reduced, right-shifted F leaves the identity plate clear below it. -->
+    <g transform="translate(391 45) scale(0.54)">
+      <g
+        [attr.opacity]="impactActive() ? 0.95 : 0.52"
+        fill="none"
+        stroke="var(--hero-muted)"
+        stroke-width="1.5"
+        stroke-dasharray="7 8"
+      >
+        <path d="M465 650V810M625 650V810M800 376V810M845 200V810" />
+        <path d="M530 690V810M690 690V810M865 416V810M910 240V810" opacity="0.6" />
+      </g>
+
+      <g
+        class="transition-[opacity] duration-300"
+        [attr.opacity]="shadowOpacity()"
+        [attr.transform]="shadowTransform()"
+      >
+        <ellipse cx="692" cy="684" rx="276" ry="42" fill="var(--hero-shadow)" />
+        <ellipse cx="692" cy="684" rx="206" ry="27" fill="var(--hero-side)" opacity="0.32" />
+      </g>
+
+      <g
+        #interactiveMonogram
+        [style.transform]="parallaxTransform()"
+        class="cursor-pointer [transform-box:fill-box] [transform-origin:center] transition-transform duration-300 ease-out"
+        (pointerenter)="onPointerEnter($event)"
+        (pointermove)="onPointerMove($event)"
+        (pointerleave)="onPointerLeave()"
+      >
+        <g
+          #dropGroup
+          [style.transform]="elevationTransform()"
+          class="[transform-box:fill-box] [transform-origin:center] transition-transform duration-300 ease-out"
+        >
+          <!-- Rear silhouette establishes the physical depth of the original F. -->
+          <path
+            d="M530 150H910V240H690V326H865V416H690V690H530Z"
+            fill="var(--hero-depth)"
+            stroke="var(--hero-detail)"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+          <!-- Extruded faces. -->
+          <path
+            d="M465 110H845L910 150H530Z"
+            fill="var(--hero-top)"
+            stroke="var(--hero-detail)"
+            stroke-width="2"
+          />
+          <path
+            d="M845 110 910 150V240L845 200Z"
+            fill="var(--hero-side)"
+            stroke="var(--hero-detail)"
+            stroke-width="2"
+          />
+          <path
+            d="M800 286 865 326V416L800 376Z"
+            fill="var(--hero-side)"
+            stroke="var(--hero-detail)"
+            stroke-width="2"
+          />
+          <path
+            d="M465 650 530 690H690L625 650Z"
+            fill="var(--hero-depth)"
+            stroke="var(--hero-detail)"
+            stroke-width="2"
+          />
+          <path
+            d="M625 376 690 416V690L625 650Z"
+            fill="var(--hero-depth)"
+            stroke="var(--hero-detail)"
+            stroke-width="2"
+          />
+          <!-- Front face. -->
+          <path
+            d="M465 110H845V200H625V286H800V376H625V650H465Z"
+            fill="var(--hero-front)"
+            stroke="var(--hero-detail)"
+            stroke-width="3"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M488 135H822M488 135V625"
+            fill="none"
+            stroke="var(--hero-ink)"
+            stroke-width="1.5"
+            opacity="0.34"
+          />
+          <path
+            d="M625 286H800M625 376H800"
+            fill="none"
+            stroke="var(--hero-detail)"
+            stroke-width="1.2"
+            opacity="0.25"
+          />
+          <text
+            x="545"
+            y="575"
+            fill="var(--hero-detail)"
+            font-family="var(--sans)"
+            font-size="13"
+            font-weight="700"
+            letter-spacing="3"
+          >
+            F / 01
+          </text>
+        </g>
+      </g>
+    </g>
+
+    <g
+      transform="translate(391 45) scale(0.54)"
+      fill="none"
+      stroke="var(--hero-muted)"
+      stroke-width="1"
+    >
+      <path
+        d="M465 760V820M530 760V820M625 760V820M690 760V820M800 760V820M865 760V820M910 760V820"
+      />
+      <rect x="465" y="760" width="65" height="60" fill="var(--hero-side)" opacity="0.55" />
+      <rect x="625" y="760" width="65" height="60" fill="var(--hero-side)" opacity="0.55" />
+      <rect x="800" y="760" width="65" height="60" fill="var(--hero-side)" opacity="0.55" />
+    </g>
+  </svg>
+</button>
