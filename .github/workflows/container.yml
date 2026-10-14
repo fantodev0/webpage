@@ -1,0 +1,75 @@
+name: Container
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - kubernetes/**
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - kubernetes/**
+
+permissions:
+  contents: read
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Determine image tag
+        id: image
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          RUN_NUMBER: ${{ github.run_number }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          REPOSITORY: ${{ github.repository }}
+          PR_HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          if [[ "$EVENT_NAME" == "push" ]]; then
+            tag="main-${RUN_NUMBER}"
+            trusted=true
+          else
+            tag="pr-${PR_NUMBER}-${PR_HEAD_SHA:0:7}"
+            trusted=false
+            if [[ "$REPOSITORY" == "$PR_HEAD_REPOSITORY" ]]; then
+              trusted=true
+            fi
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "trusted=$trusted" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to registry
+        if: steps.image.outputs.trusted == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: registry.fanto.dev
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and optionally push image
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: ${{ steps.image.outputs.trusted == 'true' }}
+          tags: registry.fanto.dev/fantodev0/webpage:${{ steps.image.outputs.tag }}
+          cache-from: type=gha
+          cache-to: ${{ steps.image.outputs.trusted == 'true' && 'type=gha,mode=max' || '' }}
+
+      - name: Report published digest
+        if: steps.image.outputs.trusted == 'true'
+        run: |
+          echo "Published registry.fanto.dev/fantodev0/webpage:${{ steps.image.outputs.tag }}"
+          echo "Digest: ${{ steps.build.outputs.digest }}"
