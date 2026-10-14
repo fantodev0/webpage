@@ -1,5 +1,10 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, resolve } from 'node:path';
+import hljs from 'highlight.js/lib/core';
+import bash from 'highlight.js/lib/languages/bash';
+
+hljs.registerLanguage('bash', bash);
+const bashLanguages = new Set(['shell', 'shellscript', 'sh', 'bash']);
 
 const root = resolve(process.cwd());
 const blogDir = resolve(root, 'blog');
@@ -44,6 +49,13 @@ function inline(value) {
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" rel="noreferrer">$1</a>');
 }
+function renderCodeBlock(lines, language) {
+  const source = lines.join('\n');
+  const code = bashLanguages.has(language.toLowerCase())
+    ? hljs.highlight(source, { language: 'bash' }).value
+    : escapeHtml(source);
+  return `<pre class="code-block"><code class="hljs language-${escapeHtml(language)}">${code}</code></pre>`;
+}
 function renderMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
   const output = [];
@@ -65,9 +77,7 @@ function renderMarkdown(markdown) {
   for (const line of lines) {
     if (line.startsWith('```')) {
       if (code) {
-        output.push(
-          `<pre><code class="language-${escapeHtml(language)}">${escapeHtml(codeLines.join('\n'))}</code></pre>`,
-        );
+        output.push(renderCodeBlock(codeLines, language));
         code = false;
         codeLines = [];
       } else {
