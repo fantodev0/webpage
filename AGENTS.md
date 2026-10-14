@@ -13,12 +13,16 @@ This repository is the standalone Angular 22 portfolio for **fanto.dev**. It use
 - `src/styles.css` — Tailwind CSS v4 import, semantic design tokens, theme variables, and global base styles. Keep page and component styling in Tailwind utility classes in templates.
 - `src/app/app.routes.ts` — locale-prefixed client routes.
 - `src/app/app.routes.server.ts` — prerender parameters for both locales and every generated article.
+- `src/server.ts` — Express SSR entry point; it also caches and exposes `/api/github-contributions` from GitHub's public contribution markup.
 - `blog/` — authored Markdown source; each published post must have both `.en.md` and `.de.md` files.
 - `scripts/generate-blog.mjs` — validates front matter, pairs locales, safely renders Markdown, and writes generated data.
 - `src/app/core/data/blog-data.ts` — generated file; do not edit by hand.
-- `src/locale/` — Angular XLIFF source/German catalogs for the configured Angular localization workflow.
+- `src/locale/` — Angular XLIFF source/German catalogs. Production currently uses route-level `/en`/`/de` content (`localize: false`), so do not assume Angular emits separate localized builds.
 - `public/robots.txt`, `public/sitemap.xml` — crawler policy and current public URL map.
-- `design/` — supplied visual reference screenshots and assets.
+- `Dockerfile` — multi-stage Node 22 build/runtime image; runs the production build and serves port 4000.
+- `kubernetes/` — Flux-managed Kubernetes manifests: Deployment, Service, Traefik HTTPRoute/middleware, SOPS-encrypted Secret/hostnames, and image automation.
+- `.sops.yaml` — encryption rules for selected Kubernetes manifest fields; never commit decrypted values or `*.dec.yaml` files.
+- `design/` — supplied visual reference screenshots and assets, not application source.
 
 ## Local development and validation
 
@@ -30,10 +34,11 @@ pnpm start                         # Angular development server
 pnpm generate:blog                 # validate and regenerate blog data
 pnpm build                         # production browser/server build and prerender
 pnpm exec ng test --watch=false --headless
+pnpm exec prettier --check path/to/changed-file
 pnpm serve:ssr:webpage             # serve the latest dist/webpage build on port 4000
 ```
 
-`pnpm build` runs `scripts/generate-blog.mjs` first. The production build currently prerenders six known pages: home, writing index, and the English/German article pages. SSR remains available for unknown routes and the not-found UI.
+`pnpm build` runs `scripts/generate-blog.mjs` first. It prerenders home and writing-index routes for both locales plus every published localized article; SSR remains available for unknown routes and the not-found UI. Tests use Angular's unit-test builder with Vitest/jsdom; the current test command may report that the `headless` flag is ignored because no browser is configured.
 
 ## Content authoring
 
@@ -53,7 +58,7 @@ The slug must equal the filename slug. Dates must be `YYYY-MM-DD`; `draft: true`
 
 ## Implementation conventions
 
-- Keep components standalone and prefer explicit typed fields over `any`.
+- Keep components standalone, `OnPush`, and signal/inject-based; prefer explicit typed fields over `any`.
 - Use strict TypeScript, two-space indentation, single quotes, and the repository Prettier configuration (100-column width, Angular HTML parser).
 - Use Tailwind CSS v4 utilities for page and component styling. Preserve semantic token classes (`paper`, `surface`, `ink`, `muted`, `line`, `soft-line`, `accent`) and the existing variable-based light/dark theme rather than adding component CSS.
 - Keep user-facing copy conspicuous and easy to replace until real biography, projects, URLs, contact details, stack, and FAQ content is supplied.
@@ -61,8 +66,12 @@ The slug must equal the filename slug. Dates must be `YYYY-MM-DD`; `draft: true`
 - Use `/en/...` and `/de/...` equivalents for language switching. Add alternate/canonical metadata when adding new localized content.
 - Keep placeholder external destinations clearly marked until real destinations are provided.
 
-## SEO and rendering
+## SEO, rendering, and deployment
 
 Page titles/descriptions are set by route page components. Article pages add canonical, alternate-language, Open Graph, article-date, and BlogPosting metadata. The home page includes Person JSON-LD. Keep `sitemap.xml` in sync when adding or removing public routes. `angular.json` contains SSR host allow-list entries for local validation and fanto.dev.
 
-Before submitting changes, run the blog generator, Prettier check, unit tests, and production build. For SSR changes, also curl both `/en` and `/de` pages from `pnpm serve:ssr:webpage` and verify document language, title, localized text, and article HTML.
+`src/server.ts` caches the public GitHub contribution response for one hour, uses stale cached data after upstream failures, and otherwise returns a 502 that the home page handles. Preserve the browser-only `afterNextRender` fetch when changing that feature.
+
+Build and publish the application as the Docker image defined in `Dockerfile`. Flux image automation owns the image tag in `kubernetes/kustomization.yaml`; avoid manually fighting its `main-<build>` updates. SOPS encrypts values in `kubernetes/secret.yaml` and `kubernetes/httproute.yaml`; decrypt/edit/re-encrypt only with the appropriate SOPS credentials. The ignored `*.dec.yaml` files are local decrypted copies.
+
+Before submitting changes, run the blog generator, Prettier check only on changed formattable paths (the supplied `design/` assets and several legacy config files are not clean under a repository-wide check), unit tests, and a production build. For SSR changes, also curl both `/en` and `/de` pages from `pnpm serve:ssr:webpage` and verify document language, title, localized text, and article HTML.
