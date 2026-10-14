@@ -30,12 +30,18 @@ spec:
             httpGet:
               path: /en
               port: http
+              httpHeaders:
+                - name: Host
+                  value: fanto.dev
             periodSeconds: 5
             failureThreshold: 24
           readinessProbe:
             httpGet:
               path: /en
               port: http
+              httpHeaders:
+                - name: Host
+                  value: fanto.dev
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
@@ -43,6 +49,9 @@ spec:
             httpGet:
               path: /en
               port: http
+              httpHeaders:
+                - name: Host
+                  value: fanto.dev
             periodSeconds: 30
             timeoutSeconds: 5
             failureThreshold: 3
