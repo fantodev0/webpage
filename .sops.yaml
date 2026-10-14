@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: ^kubernetes/(httproute\.yaml|secret\.yaml)$
+    age: age149cx2m4rwfw6argx9fam62vjtcjgeuepd78ej8f0mcpatdgxdqfslqu454
+    encrypted_regex: '^(data|stringData|hostnames)$'
