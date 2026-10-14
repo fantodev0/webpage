@@ -1,23 +1,37 @@
 import { DecimalPipe, NgOptimizedImage } from '@angular/common';
-import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PROFILE } from '../../core/data/profile';
+import { LocaleService } from '../../core/services/locale.service';
+import { SeoService } from '../../core/services/seo.service';
 import type { GithubContributions } from '../../core/types/github-contribution';
-import { getLocale, type Locale } from '../../core/types/locale';
+import { type Locale } from '../../core/types/locale';
 import { LucideIcon } from '../../shared/components/lucide-icon/lucide-icon';
 import { SiteFooter } from '../../shared/components/site-footer/site-footer';
+import { MonogramF } from './monogram-f/monogram-f';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home-page',
-  imports: [DecimalPipe, LucideIcon, NgOptimizedImage, RouterLink, SiteFooter],
+  imports: [DecimalPipe, LucideIcon, MonogramF, NgOptimizedImage, RouterLink, SiteFooter],
   templateUrl: './home.html',
 })
 export class HomePage {
-  private readonly route = inject(ActivatedRoute);
+  private readonly localeService = inject(LocaleService);
+  private readonly seo = inject(SeoService);
   private readonly githubContributionsState = signal<GithubContributions | null>(null);
   private readonly githubContributionLoadFailedState = signal(false);
-  readonly locale: Locale = getLocale(this.route.parent?.snapshot.paramMap.get('locale'));
+
+  get locale(): Locale {
+    return this.localeService.locale();
+  }
   readonly profile = PROFILE;
   readonly githubContributions = this.githubContributionsState.asReadonly();
   readonly githubContributionLoadFailed = this.githubContributionLoadFailedState.asReadonly();
@@ -30,7 +44,20 @@ export class HomePage {
   ] as const;
 
   constructor() {
+    effect(() => this.updatePageMetadata(this.locale));
     afterNextRender(() => void this.loadGithubContributions());
+  }
+
+  private updatePageMetadata(locale: Locale): void {
+    this.seo.update({
+      title: 'FantoDev — Lucien Siani',
+      description:
+        locale === 'de'
+          ? 'Lucien Siani — ein Platzhalter-Portfolio für sorgfältig entwickelte digitale Arbeiten.'
+          : 'Lucien Siani — a placeholder portfolio for thoughtful digital work.',
+      locale,
+      path: `/${locale}`,
+    });
   }
 
   private async loadGithubContributions(): Promise<void> {
