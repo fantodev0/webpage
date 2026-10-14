@@ -1,9 +1,12 @@
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { map } from 'rxjs';
 import { BLOG_POSTS, type BlogPost } from '../../core/data/blog-data';
-import { getLocale, type Locale } from '../../core/types/locale';
+import { LocaleService } from '../../core/services/locale.service';
+import { SeoService } from '../../core/services/seo.service';
+import { type Locale } from '../../core/types/locale';
 import { SiteFooter } from '../../shared/components/site-footer/site-footer';
 
 @Component({
@@ -14,49 +17,57 @@ import { SiteFooter } from '../../shared/components/site-footer/site-footer';
 })
 export class PostPage {
   private readonly route = inject(ActivatedRoute);
-  private readonly title = inject(Title);
-  private readonly meta = inject(Meta);
-  private readonly document = inject(DOCUMENT);
-  readonly locale: Locale = getLocale(this.route.parent?.snapshot.paramMap.get('locale'));
-  readonly slug = this.route.snapshot.paramMap.get('slug') ?? '';
-  readonly post: BlogPost | undefined = BLOG_POSTS.find(
-    (item) => item.slug === this.slug && item.locale === this.locale,
-  );
-  readonly alternate: BlogPost | undefined = BLOG_POSTS.find(
-    (item) => item.slug === this.slug && item.locale !== this.locale,
+  private readonly localeService = inject(LocaleService);
+  private readonly seo = inject(SeoService);
+  private readonly slugState = toSignal(
+    this.route.paramMap.pipe(map((params) => params.get('slug') ?? '')),
+    { initialValue: this.route.snapshot.paramMap.get('slug') ?? '' },
   );
 
-  constructor() {
-    if (!this.post) {
-      this.title.setTitle(
-        this.locale === 'de' ? 'Beitrag nicht gefunden — FantoDev' : 'Post not found — FantoDev',
-      );
-      return;
-    }
-    const pageTitle = `${this.post.title} — FantoDev`;
-    this.title.setTitle(pageTitle);
-    this.meta.updateTag({ name: 'description', content: this.post.description });
-    this.meta.updateTag({ property: 'og:title', content: pageTitle });
-    this.meta.updateTag({ property: 'og:description', content: this.post.description });
-    this.meta.updateTag({ property: 'og:type', content: 'article' });
-    this.meta.updateTag({ property: 'article:published_time', content: this.post.date });
-    this.setLink('canonical', `https://fanto.dev/${this.locale}/writing/${this.post.slug}`);
-    if (this.alternate)
-      this.setLink(
-        'alternate',
-        `https://fanto.dev/${this.alternate.locale}/writing/${this.alternate.slug}`,
-        this.alternate.locale,
-      );
+  get locale(): Locale {
+    return this.localeService.locale();
   }
 
-  private setLink(rel: string, href: string, hreflang?: string) {
-    const link =
-      this.document.head.querySelector(`link[rel="${rel}"][hreflang="${hreflang ?? ''}"]`) ??
-      this.document.createElement('link');
-    link.setAttribute('rel', rel);
-    link.setAttribute('href', href);
-    if (hreflang) link.setAttribute('hreflang', hreflang);
-    this.document.head.appendChild(link);
+  get slug(): string {
+    return this.slugState();
+  }
+
+  get post(): BlogPost | undefined {
+    return BLOG_POSTS.find((item) => item.slug === this.slug && item.locale === this.locale);
+  }
+
+  get alternate(): BlogPost | undefined {
+    return BLOG_POSTS.find((item) => item.slug === this.slug && item.locale !== this.locale);
+  }
+
+  constructor() {
+    effect(() => this.updatePageMetadata());
+  }
+
+  private updatePageMetadata(): void {
+    const post = this.post;
+    if (!post) {
+      this.seo.update({
+        title:
+          this.locale === 'de' ? 'Beitrag nicht gefunden — FantoDev' : 'Post not found — FantoDev',
+        description:
+          this.locale === 'de'
+            ? 'Der angeforderte Beitrag wurde nicht gefunden.'
+            : 'The requested post could not be found.',
+        locale: this.locale,
+        path: `/${this.locale}/writing/${this.slug}`,
+      });
+      return;
+    }
+
+    this.seo.update({
+      title: `${post.title} — FantoDev`,
+      description: post.description,
+      locale: this.locale,
+      path: `/${this.locale}/writing/${post.slug}`,
+      type: 'article',
+      publishedTime: post.date,
+    });
   }
 
   articleJson(article: BlogPost) {
