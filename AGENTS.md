@@ -14,7 +14,7 @@ This repository is the standalone Angular 22 portfolio for **fanto.dev**. It use
 - `src/app/app.routes.ts` — locale-prefixed client routes.
 - `src/app/app.routes.server.ts` — prerender parameters for both locales and every generated article.
 - `src/server.ts` — Express SSR entry point; it also caches and exposes `/api/github-contributions` from GitHub's public contribution markup.
-- `blog/` — authored Markdown source; each published post must have both `.en.md` and `.de.md` files.
+- `blog/` — authored Markdown source; each post lives in `blog/<slug>/` with exactly `en.md` and `de.md` files.
 - `scripts/generate-blog.mjs` — validates front matter, pairs locales, safely renders Markdown, and writes generated data.
 - `src/app/core/data/blog-data.ts` — generated file; do not edit by hand.
 - `src/locale/` — Angular XLIFF source/German catalogs. Production currently uses route-level `/en`/`/de` content (`localize: false`), so do not assume Angular emits separate localized builds.
@@ -42,7 +42,7 @@ pnpm serve:ssr:webpage             # serve the latest dist/webpage build on port
 
 ## Content authoring
 
-Create paired files such as `blog/my-post.en.md` and `blog/my-post.de.md`. Every file requires this front matter:
+Create a directory such as `blog/my-post/` containing exactly `en.md` and `de.md`. The directory name must equal the `slug` in both files. Do not use flat `blog/<slug>.<locale>.md` files. Every file requires this front matter:
 
 ```yaml
 ---
