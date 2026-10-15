@@ -8,9 +8,18 @@ const bashLanguages = new Set(['shell', 'shellscript', 'sh', 'bash']);
 
 const root = resolve(process.cwd());
 const blogDir = resolve(root, 'blog');
-const files = (await readdir(blogDir)).filter((file) => /\.(en|de)\.md$/.test(file));
+const entries = await readdir(blogDir, { withFileTypes: true });
+const misplacedEntries = entries.filter((entry) => !entry.isDirectory());
+if (misplacedEntries.length) {
+  throw new Error(
+    `blog/: entries must be slug directories containing en.md and de.md; found ${misplacedEntries
+      .map((entry) => entry.name)
+      .join(', ')}`,
+  );
+}
+const slugDirectories = entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name);
 
-function parseFrontMatter(source, filename) {
+function parseFrontMatter(source, filename, expectedSlug) {
   const match = source.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!match) throw new Error(`${filename}: front matter is required`);
   const values = Object.fromEntries(
@@ -26,12 +35,11 @@ function parseFrontMatter(source, filename) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(values.date) || !['true', 'false'].includes(values.draft)) {
     throw new Error(`${filename}: date must be YYYY-MM-DD and draft must be true or false`);
   }
-  const locale = basename(filename).split('.').at(-2);
-  if (
-    !['en', 'de'].includes(locale) ||
-    values.slug !== basename(filename).replace(`.${locale}.md`, '')
-  ) {
-    throw new Error(`${filename}: slug must match the filename and locale must be en or de`);
+  const locale = basename(filename, '.md');
+  if (!['en', 'de'].includes(locale) || values.slug !== expectedSlug) {
+    throw new Error(
+      `${filename}: slug must match the parent directory and locale must be en or de`,
+    );
   }
   return { ...values, draft: values.draft === 'true', locale, body: match[2].trim() };
 }
@@ -118,9 +126,32 @@ function renderMarkdown(markdown) {
 }
 
 const posts = [];
-for (const file of files) {
-  const post = parseFrontMatter(await readFile(resolve(blogDir, file), 'utf8'), file);
-  if (!post.draft) posts.push({ ...post, html: renderMarkdown(post.body) });
+for (const slug of slugDirectories) {
+  const slugDirectory = resolve(blogDir, slug);
+  const sourceEntries = await readdir(slugDirectory, { withFileTypes: true });
+  const unexpectedEntries = sourceEntries.filter(
+    (entry) => !entry.isFile() || !['en.md', 'de.md'].includes(entry.name),
+  );
+  if (unexpectedEntries.length) {
+    throw new Error(
+      `${slug}: directory must contain only en.md and de.md; found ${unexpectedEntries
+        .map((entry) => entry.name)
+        .join(', ')}`,
+    );
+  }
+
+  for (const locale of ['en', 'de']) {
+    const file = `${slug}/${locale}.md`;
+    let source;
+    try {
+      source = await readFile(resolve(slugDirectory, `${locale}.md`), 'utf8');
+    } catch (error) {
+      if (error.code === 'ENOENT') throw new Error(`${file}: required locale file is missing`);
+      throw error;
+    }
+    const post = parseFrontMatter(source, file, slug);
+    if (!post.draft) posts.push({ ...post, html: renderMarkdown(post.body) });
+  }
 }
 const slugs = new Set(posts.map((post) => post.slug));
 for (const slug of slugs)
