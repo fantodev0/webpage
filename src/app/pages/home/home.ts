@@ -8,6 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PROJECTS } from '../../core/data/projects';
 import { PROFILE } from '../../core/data/profile';
 import { LocaleService } from '../../core/services/locale.service';
 import { SeoService } from '../../core/services/seo.service';
@@ -33,6 +34,7 @@ export class HomePage {
     return this.localeService.locale();
   }
   readonly profile = PROFILE;
+  readonly projects = PROJECTS;
   readonly githubContributions = this.githubContributionsState.asReadonly();
   readonly githubContributionLoadFailed = this.githubContributionLoadFailedState.asReadonly();
   readonly contributionLevelColors = [

@@ -37,8 +37,8 @@
         >
           {{
             locale === 'de'
-              ? ''
-              : 'Fullstack .NET Engineer and Homelabber, i like learning new techs and building tools to help others.'
+              ? 'Full-Stack-Entwickler mit .NET-Fokus und Homelabber – ich entwickle praktische Software und beschäftige mich mit neuen Technologien.'
+              : 'Full-stack .NET engineer and homelabber, building practical software and exploring new technologies.'
           }}
         </p>
         <div
@@ -94,7 +94,7 @@
     @if (githubContributions(); as contributions) {
       <div class="overflow-x-auto pb-3">
         <div
-          class="mx-auto w-fit min-w-[900px]"
+          class="mx-auto w-fit min-w-225"
           role="img"
           [attr.aria-label]="contributions.total + ' GitHub contributions in the last year'"
         >
@@ -109,15 +109,15 @@
           </div>
           <div class="grid grid-cols-[28px_1fr] gap-2">
             <div
-              class="flex h-[115px] flex-col justify-around font-mono text-[10px] text-muted"
+              class="flex h-28.75 flex-col justify-around font-mono text-[10px] text-muted"
               aria-hidden="true"
             >
               <span>Mon</span><span>Wed</span><span>Fri</span>
             </div>
-            <div class="grid grid-flow-col auto-cols-[13px] grid-rows-7 gap-1">
+            <div class="grid grid-flow-col auto-cols-3.25 grid-rows-7 gap-1">
               @for (day of contributions.days; track day.date) {
                 <span
-                  class="size-[13px] rounded-[2px]"
+                  class="size-3.25 rounded-xs"
                   [style.background-color]="contributionLevelColors[day.level]"
                   aria-hidden="true"
                   [attr.title]="
@@ -190,35 +190,35 @@
       {{ locale === 'de' ? 'Über mich' : 'About me' }}<span class="text-accent">.</span>
     </h2>
   </div>
-  <div class="py-[30px] pb-[34px] sm:grid sm:grid-cols-[27%_1fr] sm:gap-6 sm:py-13 sm:pb-13.75">
+  <div class="py-7.5 pb-8.5 sm:grid sm:grid-cols-[27%_1fr] sm:gap-6 sm:py-13 sm:pb-13.75">
     <div
-      class="mb-[26px] flex items-start gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+      class="mb-6.5 flex items-start gap-4.5 text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
     >
       <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">01</span
       ><strong class="font-normal">{{ locale === 'de' ? 'Über mich' : 'About me' }}</strong>
     </div>
-    <div class="max-w-[900px]">
-      <h3 class="mb-[18px] text-[25px] tracking-[-0.055em] sm:text-[31px]">
+    <div class="max-w-225">
+      <h3 class="mb-4.5 text-[25px] tracking-[-0.055em] sm:text-[31px]">
         {{
           locale === 'de'
-            ? 'Digitale Dinge mit Sorgfalt bauen.'
-            : 'Building digital things with care.'
+            ? 'Digitale Dinge mit Sorgfalt verstehen und bauen.'
+            : 'Learning and building digital things with care.'
         }}
       </h3>
       <p
-        class="mb-[14px] max-w-[850px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]"
+        class="mb-3.5 max-w-212.5 text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]"
       >
         {{
           locale === 'de'
-            ? 'Dieser Text ist ein gut sichtbarer Platzhalter für Luciens Biografie. Erzähle hier, woran du glaubst, welche Probleme du löst und was dich antreibt.'
-            : 'This is a conspicuous placeholder for Lucien’s biography. Tell people what you believe in, which problems you solve, and what keeps you curious.'
+            ? 'Ich bin Lucien, auch bekannt als fanto, und arbeite als .NET-Softwareentwickler in Deutschland. Seit mehr als fünf Jahren entwickle ich professionell Software. Ich baue gern digitale Lösungen und beschäftige mich mit neuen Technologien. Außerdem betreibe ich ein Homelab – einen Proxmox-Cluster mit drei Nodes und einen Kubernetes-Cluster –, das ich als Spielwiese zum Lernen und Hosten der meisten meiner Projekte nutze, einschließlich dieser Website.'
+            : 'I’m Lucien, also known as fanto, a .NET software engineer based in Germany with more than five years of professional experience. I enjoy building digital solutions and exploring new technologies. I also run a homelab—a three-node Proxmox cluster and a Kubernetes cluster—that I use as a sandbox for learning and hosting most of my projects, including this site.'
         }}
       </p>
-      <p class="max-w-[850px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
+      <p class="max-w-212.5 text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
         {{
           locale === 'de'
-            ? 'Der zweite Absatz kann Erfahrungen, Arbeitsweise und ein wenig Persönlichkeit aufnehmen.'
-            : 'A second paragraph can hold experience, working style, and a little personality.'
+            ? 'Abseits des Programmierens beschäftige ich mich gern mit Systemen von Grund auf. Ich experimentiere, dokumentiere, was ich lerne, und teile es, wenn es anderen helfen kann. Außerdem mag ich Fachbücher, Manga und Fotografie.'
+            : 'Outside of programming, I enjoy understanding systems from the ground up. I experiment, document what I learn, and share it when it might help someone else. I also make time for technical books, manga, and photography.'
         }}
       </p>
     </div>
@@ -233,99 +233,44 @@
   class="-mx-4 border-b border-line px-4 [&_h2]:text-[clamp(32px,3.5vw,46px)] [&_p]:text-sm [&_strong]:text-[20px] sm:-mx-7 sm:px-7 sm:[&_p]:text-base sm:[&_strong]:text-[23px]"
   id="projects"
 >
-  <div class="border-b border-line pt-[27px] pb-5 sm:pt-[31px] sm:pb-6">
+  <div class="border-b border-line pt-6.75 pb-5 sm:pt-7.75 sm:pb-6">
     <h2 class="text-[clamp(42px,5vw,62px)] leading-[1.02] font-semibold tracking-[-0.075em]">
       {{ locale === 'de' ? 'Ausgewählte Arbeit' : 'Selected work'
       }}<span class="text-accent">.</span>
     </h2>
   </div>
-  <div class="border-b border-line">
-    <article
-      class="grid grid-cols-[1fr_25px] items-start gap-5 border-b border-line py-7 transition-[padding] sm:grid-cols-[27%_1fr_30px] sm:gap-6 sm:py-9 sm:hover:pl-2.5"
-    >
-      <div
-        class="col-span-full flex items-start gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:col-auto sm:text-[27px]"
+  <div>
+    @for (project of projects; track project.id; let index = $index; let last = $last) {
+      <article
+        class="grid grid-cols-[1fr_25px] items-start gap-5 border-line py-7 transition-[padding] sm:grid-cols-[27%_1fr_30px] sm:gap-6 sm:py-9 sm:hover:pl-2.5"
+        [class.border-b]="!last"
       >
-        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">01</span
-        ><strong class="font-normal">Project Placeholder</strong>
-      </div>
-      <div>
-        <p class="mb-5 text-base text-muted sm:text-lg">
-          {{
-            locale === 'de'
-              ? 'Eine kurze Projektbeschreibung – ersetze diesen Text durch deine Arbeit.'
-              : 'A short project description — replace this with your own work.'
-          }}
-        </p>
-        <div class="flex flex-wrap gap-[9px]">
-          <span
-            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
-            >Angular</span
-          ><span
-            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
-            >TypeScript</span
-          ><span
-            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
-            >01 / 03</span
-          >
+        <div
+          class="col-span-full flex items-start gap-4.5 text-[23px] tracking-[-0.035em] text-muted sm:col-auto sm:text-[27px]"
+        >
+          <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">{{
+            index + 1 | number: '2.0'
+          }}</span
+          ><strong class="font-normal">{{ project.name }}</strong>
         </div>
-      </div>
-      <span class="text-xl">↗</span>
-    </article>
-    <article
-      class="grid grid-cols-[1fr_25px] items-start gap-5 border-b border-line py-7 transition-[padding] sm:grid-cols-[27%_1fr_30px] sm:gap-6 sm:py-9 sm:hover:pl-2.5"
-    >
-      <div
-        class="col-span-full flex items-start gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:col-auto sm:text-[27px]"
-      >
-        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">02</span
-        ><strong class="font-normal">Another Experiment</strong>
-      </div>
-      <div>
-        <p class="mb-5 text-base text-muted sm:text-lg">
-          {{
-            locale === 'de'
-              ? 'Platzhalter für ein Produkt, ein Experiment oder einen Case Study Link.'
-              : 'Placeholder for a product, experiment, or case study link.'
-          }}
-        </p>
-        <div class="flex flex-wrap gap-[9px]">
-          <span
-            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
-            >Design systems</span
-          ><span
-            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
-            >Web</span
-          ><span
-            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
-            >02 / 03</span
-          >
+        <div>
+          <p class="mb-5 text-base text-muted sm:text-lg">{{ project.description[locale] }}</p>
+          <div class="flex flex-wrap gap-2.25">
+            @for (technology of project.technologies; track technology) {
+              <span
+                class="rounded-[14px] border border-line px-2.75 py-2 font-mono text-xs sm:px-3.5 sm:py-2.25 sm:text-[13px]"
+                >{{ technology }}</span
+              >
+            }
+            <span
+              class="rounded-[14px] border border-line px-2.75 py-2 font-mono text-xs sm:px-3.5 sm:py-2.25 sm:text-[13px]"
+              >{{ index + 1 | number: '2.0' }} / {{ projects.length | number: '2.0' }}</span
+            >
+          </div>
         </div>
-      </div>
-      <span class="text-xl">↗</span>
-    </article>
-    <article
-      class="grid grid-cols-[1fr_25px] items-start gap-5 py-7 opacity-[0.52] sm:grid-cols-[27%_1fr_30px] sm:gap-6 sm:py-9"
-    >
-      <div
-        class="col-span-full flex items-start gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:col-auto sm:text-[27px]"
-      >
-        <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">03</span
-        ><strong class="font-normal">Coming soon</strong>
-      </div>
-      <div>
-        <p class="mb-5 text-base text-muted sm:text-lg">
-          {{ locale === 'de' ? 'Weitere Projekte folgen.' : 'More projects coming soon.' }}
-        </p>
-        <div class="flex flex-wrap gap-[9px]">
-          <span
-            class="rounded-[14px] border border-line px-[11px] py-2 font-mono text-xs sm:px-[14px] sm:py-[9px] sm:text-[13px]"
-            >Placeholder</span
-          >
-        </div>
-      </div>
-      <span class="text-xl">→</span>
-    </article>
+        <span class="text-xl">↗</span>
+      </article>
+    }
   </div>
 </section>
 
@@ -337,118 +282,115 @@
     class="-mx-4 h-5 border-y border-soft-line bg-[repeating-linear-gradient(135deg,transparent_0_12px,var(--soft-line)_12px_13px,transparent_13px_20px)] sm:-mx-7"
     aria-hidden="true"
   ></div>
-  <div class="border-b border-line pt-[27px] pb-5 sm:pt-[31px] sm:pb-6">
+  <div class="border-b border-line pt-6.75 pb-5 sm:pt-7.75 sm:pb-6">
     <h2 class="text-[clamp(42px,5vw,62px)] leading-[1.02] font-semibold tracking-[-0.075em]">
       Stack<span class="text-accent">.</span>
     </h2>
   </div>
   <div class="border-b border-line">
     <div
-      class="border-b border-line py-[27px] pb-[30px] sm:grid sm:min-h-[130px] sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
+      class="border-b border-line py-6.75 pb-7.5 sm:grid sm:min-h-32.5 sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
     >
       <div
-        class="mb-5 flex items-center gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+        class="mb-5 flex items-center gap-4.5 text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
       >
         <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">01</span
         ><strong class="font-normal">{{ locale === 'de' ? 'Sprachen' : 'Languages' }}</strong>
       </div>
       <div class="flex flex-wrap items-center gap-2.5">
         <span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >C#</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >TypeScript</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >JavaScript</span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >Python</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >PHP</span
-        ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >Go</span
-        ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >Bash</span
         >
       </div>
     </div>
     <div
-      class="border-b border-line py-[27px] pb-[30px] sm:grid sm:min-h-[130px] sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
+      class="border-b border-line py-6.75 pb-7.5 sm:grid sm:min-h-32.5 sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
     >
       <div
-        class="mb-5 flex items-center gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+        class="mb-5 flex items-center gap-4.5 text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
       >
         <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">02</span
         ><strong class="font-normal">Frontend</strong>
       </div>
       <div class="flex flex-wrap items-center gap-2.5">
         <span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >Angular</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >React</span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >Blazor</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >Tailwind CSS</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >React Native</span
-        ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >Svelte</span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >.NET Maui</span
         >
       </div>
     </div>
     <div
-      class="border-b border-line py-[27px] pb-[30px] sm:grid sm:min-h-[130px] sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
+      class="border-b border-line py-6.75 pb-7.5 sm:grid sm:min-h-32.5 sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
     >
       <div
-        class="mb-5 flex items-center gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+        class="mb-5 flex items-center gap-4.5 text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
       >
         <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">03</span
         ><strong class="font-normal">Backend</strong>
       </div>
       <div class="flex flex-wrap items-center gap-2.5">
         <span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >Node.js</span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >ASP.NET</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >REST APIs</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >GraphQL</span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >Redis</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >Postgres</span
         >
       </div>
     </div>
     <div
-      class="py-[27px] pb-[30px] sm:grid sm:min-h-[130px] sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
+      class="py-6.75 pb-7.5 sm:grid sm:min-h-32.5 sm:grid-cols-[27%_1fr] sm:items-center sm:gap-6 sm:py-0"
     >
       <div
-        class="mb-5 flex items-center gap-[18px] text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
+        class="mb-5 flex items-center gap-4.5 text-[23px] tracking-[-0.035em] text-muted sm:mb-0 sm:text-[27px]"
       >
         <span class="font-mono text-base text-[#b8bbc0] sm:text-[19px]">04</span
         ><strong class="font-normal">{{ locale === 'de' ? 'Bereitstellung' : 'Delivery' }}</strong>
       </div>
       <div class="flex flex-wrap items-center gap-2.5">
         <span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >Testing</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >CI/CD</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >GitOps</span
+        ><span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
           >Git</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >Docker</span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >Kubernetes</span
         ><span
-          class="rounded-[15px] border border-line bg-surface/70 px-[13px] py-[9px] font-mono text-[13px] leading-[1.15] sm:px-[19px] sm:py-[10px] sm:text-base"
-          >Figma</span
+          class="rounded-[15px] border border-line bg-surface/70 px-3.25 py-2.25 font-mono text-[13px] leading-[1.15] sm:px-4.75 sm:py-2.5 sm:text-base"
+          >Azure</span
         >
       </div>
     </div>
@@ -463,25 +405,25 @@
   class="-mx-4 border-b border-line px-4 [&_h2]:text-[clamp(32px,3.5vw,46px)] [&_h3]:text-[20px] [&_p]:text-[15px] sm:-mx-7 sm:px-7 sm:[&_h3]:text-[24px] sm:[&_p]:text-base"
   id="faq"
 >
-  <div class="border-b border-line pt-[27px] pb-5 sm:pt-[31px] sm:pb-6">
+  <div class="border-b border-line pt-6.75 pb-5 sm:pt-7.75 sm:pb-6">
     <h2 class="text-[clamp(42px,5vw,62px)] leading-[1.02] font-semibold tracking-[-0.075em]">
-      FAQ
+      FAQ<span class="text-accent">.</span>
     </h2>
   </div>
   <div class="border-b border-line">
-    <article class="border-b border-line py-7 sm:py-[38px] sm:pb-9">
+    <article class="border-b border-line py-7 sm:py-9.5 sm:pb-9">
       <h3 class="mb-4 text-[23px] tracking-[-0.045em] sm:text-[28px]">
         {{ locale === 'de' ? 'Wer ist Lucien Siani?' : 'Who is Lucien Siani?' }}
       </h3>
-      <p class="max-w-[1080px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
+      <p class="max-w-270 text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
         {{
           locale === 'de'
-            ? 'Lucien Siani ist ein Platzhalter für einen Full-Stack-Entwickler. Ersetze diese Antwort durch deine Biografie, Erfahrung und aktuelle Mission.'
-            : 'Lucien Siani is a placeholder for a full-stack developer. Replace this answer with your biography, experience, and current mission.'
+            ? 'Ich bin Lucien Siani, ein Full-Stack-Softwareentwickler aus Deutschland mit mehr als fünf Jahren Berufserfahrung. Ich betreibe ein Homelab mit einem Proxmox-Cluster aus drei Nodes und einem Kubernetes-Cluster, das ich zum Lernen und Hosten von Projekten nutze. In meiner Freizeit lese ich Fachbücher und Manga und fotografiere gern.'
+            : 'I’m Lucien Siani, a full-stack software engineer based in Germany with more than five years of professional experience. I run a homelab consisting of a three-node Proxmox cluster and a Kubernetes cluster, which I use to learn and host projects. Outside of work, I enjoy technical books, manga, and photography.'
         }}
       </p>
     </article>
-    <article class="border-b border-line py-7 sm:py-[38px] sm:pb-9">
+    <article class="border-b border-line py-7 sm:py-9.5 sm:pb-9">
       <h3 class="mb-4 text-[23px] tracking-[-0.045em] sm:text-[28px]">
         {{
           locale === 'de'
@@ -489,15 +431,15 @@
             : 'What technologies do you work with?'
         }}
       </h3>
-      <p class="max-w-[1080px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
+      <p class="max-w-270 text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
         {{
           locale === 'de'
-            ? 'Ich arbeite hauptsächlich mit TypeScript, Angular, Node.js und modernen Webplattformen. Ergänze hier deine echten Schwerpunkte.'
-            : 'I primarily work with TypeScript, Angular, Node.js, and modern web platforms. Add your real areas of expertise here.'
+            ? 'Ich arbeite hauptsächlich mit C#, TypeScript, Angular und modernen Webplattformen. Darüber hinaus bringe ich fundierte DevOps-Erfahrung mit Docker, Kubernetes und GitOps mit Flux CD sowie Erfahrung mit Datenbanken und Cloud-Plattformen mit.'
+            : 'I primarily work with C#, TypeScript, Angular, and modern web platforms. I also have solid DevOps experience with Docker, Kubernetes, and GitOps using Flux CD, as well as databases and cloud platforms.'
         }}
       </p>
     </article>
-    <article class="py-7 sm:py-[38px] sm:pb-9">
+    <article class="py-7 sm:py-9.5 sm:pb-9">
       <h3 class="mb-4 text-[23px] tracking-[-0.045em] sm:text-[28px]">
         {{
           locale === 'de'
@@ -505,11 +447,11 @@
             : 'Are you available for remote work?'
         }}
       </h3>
-      <p class="max-w-[1080px] text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
+      <p class="max-w-270 text-base leading-[1.55] text-muted sm:text-xl sm:leading-[1.65]">
         {{
           locale === 'de'
-            ? 'Platzhalter für Verfügbarkeit, Zeitzone und bevorzugte Zusammenarbeit. Ersetze diesen Text mit deinen aktuellen Bedingungen.'
-            : 'Placeholder for availability, timezone, and preferred collaboration. Replace this with your current terms.'
+            ? 'Ja. Ich lebe in Deutschland (MEZ/MESZ) und bin für vollständig remote ausgeübte Festanstellungen oder langfristige Verträge offen – direkt auf B2B-Basis oder über einen Employer of Record.'
+            : 'Yes. I’m based in Germany (CET/CEST) and open to fully remote permanent roles or long-term contracts, either directly B2B or through an employer of record.'
         }}
       </p>
     </article>
@@ -520,11 +462,11 @@
   ></div>
 </section>
 
-<section class="border-b border-line pb-[95px] [&_h2]:text-[clamp(26px,3vw,42px)] [&_a]:text-xl">
-  <div class="flex items-center justify-between pt-[60px] sm:items-end sm:pt-[78px]">
+<section class="border-b border-line pb-23.75 [&_h2]:text-[clamp(26px,3vw,42px)] [&_a]:text-xl">
+  <div class="flex items-center justify-between pt-15 sm:items-end sm:pt-19.5">
     <div>
       <h2
-        class="mb-[13px] text-[clamp(31px,4vw,55px)] leading-[1.02] font-semibold tracking-[-0.065em]"
+        class="mb-3.25 text-[clamp(31px,4vw,55px)] leading-[1.02] font-semibold tracking-[-0.065em]"
       >
         Writing<span class="text-accent">.</span>
       </h2>
@@ -537,7 +479,7 @@
       </p>
     </div>
     <a
-      class="grid size-[66px] shrink-0 place-items-center rounded-full border border-ink text-2xl transition-colors hover:bg-ink hover:text-paper focus-visible:outline-accent"
+      class="grid size-16.5 shrink-0 place-items-center rounded-full border border-ink text-2xl transition-colors hover:bg-ink hover:text-paper focus-visible:outline-accent"
       [routerLink]="['/', locale, 'writing']"
       aria-label="Read writing"
       >↗</a
