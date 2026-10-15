@@ -1,11 +1,11 @@
-<section class="border-b border-line pb-[100px]">
+<section class="border-b border-line pb-25">
   <div>
     <h1
-      class="mt-[60px] mb-[23px] text-[clamp(50px,8vw,96px)] leading-[0.95] font-[650] tracking-[-0.085em] sm:mt-[78px]"
+      class="mt-15 mb-5.75 text-[clamp(50px,8vw,96px)] leading-[0.95] font-[650] tracking-[-0.085em] sm:mt-19.5"
     >
       {{ locale === 'de' ? 'Gedanken, Notizen &amp; Guides.' : 'Thoughts, notes &amp; guides.' }}
     </h1>
-    <p class="max-w-[530px] text-lg text-muted">
+    <p class="max-w-132.5 text-lg text-muted">
       {{
         locale === 'de'
           ? 'Ein persönliches Archiv für Dinge, die ich baue, lerne und unterwegs herausfinde.'
@@ -14,7 +14,7 @@
     </p>
   </div>
 </section>
-<section class="border-b border-line pt-1.5 pb-[45px]" aria-label="Blog posts">
+<section class="border-b border-line pt-1.5 pb-11.25" aria-label="Blog posts">
   @for (post of posts; track post.slug) {
     <a
       class="grid grid-cols-[1fr_28px] items-start gap-3 border-t border-line py-7 transition-[padding] hover:pl-2.5 focus-visible:outline-accent sm:grid-cols-[18%_1fr_35px] sm:gap-[5%]"
@@ -27,16 +27,16 @@
       >
       <div>
         <h2
-          class="mb-[5px] text-[21px] leading-[1.02] font-semibold tracking-[-0.065em] sm:-mt-1.5 sm:mb-2 sm:text-[25px]"
+          class="mb-1.25 text-[21px] leading-[1.02] font-semibold tracking-[-0.065em] sm:-mt-1.5 sm:mb-2 sm:text-[25px]"
         >
           {{ post.title }}
         </h2>
-        <p class="max-w-[570px] text-muted">{{ post.description }}</p>
+        <p class="max-w-142.5 text-muted">{{ post.description }}</p>
       </div>
       <span class="text-xl">↗</span>
     </a>
   } @empty {
-    <p class="py-[35px] text-muted">
+    <p class="py-8.75 text-muted">
       {{ locale === 'de' ? 'Noch keine veröffentlichten Beiträge.' : 'No published posts yet.' }}
     </p>
   }
