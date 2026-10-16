@@ -235,8 +235,7 @@
 >
   <div class="border-b border-line pt-6.75 pb-5 sm:pt-7.75 sm:pb-6">
     <h2 class="text-[clamp(42px,5vw,62px)] leading-[1.02] font-semibold tracking-[-0.075em]">
-      {{ locale === 'de' ? 'Ausgewählte Arbeit' : 'Selected work'
-      }}<span class="text-accent">.</span>
+      {{ locale === 'de' ? 'Projekten' : 'Projects' }}<span class="text-accent">.</span>
     </h2>
   </div>
   <div>
@@ -255,6 +254,11 @@
         </div>
         <div>
           <p class="mb-5 text-base text-muted sm:text-lg">{{ project.description[locale] }}</p>
+          <ul class="mb-5 list-disc space-y-1 pl-5 text-base text-muted sm:text-lg">
+            @for (highlight of project.highlights[locale]; track highlight) {
+              <li>{{ highlight }}</li>
+            }
+          </ul>
           <div class="flex flex-wrap gap-2.25">
             @for (technology of project.technologies; track technology) {
               <span
