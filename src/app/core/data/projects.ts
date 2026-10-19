@@ -10,45 +10,72 @@ export interface Project {
 
 export const PROJECTS = [
   {
-    id: 'project-placeholder',
-    name: 'Project Placeholder',
+    id: 'homelab-kubernetes',
+    name: 'Kubernetes homelab',
     description: {
-      en: 'A short project description — replace this with your own work.',
-      de: 'Eine kurze Projektbeschreibung – ersetze diesen Text durch deine Arbeit.',
+      en: 'A three-node k3s cluster used as a learning sandbox, a home for personal projects, and a private alternative to selected cloud services.',
+      de: 'Ein dreiknotiger k3s-Cluster als Lernumgebung, zum Hosten persönlicher Projekte und als datenschutzfreundliche Alternative zu ausgewählten Cloud-Diensten.',
     },
     highlights: {
       en: [
-        'Placeholder project outcome',
-        'Placeholder technical challenge',
-        'Placeholder lesson learned',
+        'Three-node k3s cluster',
+        'FluxCD for GitOps operations',
+        'CloudNativePG for distributed PostgreSQL workloads',
+        'Longhorn for distributed storage',
       ],
       de: [
-        'Platzhalter für ein Projektergebnis',
-        'Platzhalter für eine technische Herausforderung',
-        'Platzhalter für eine gewonnene Erkenntnis',
+        'Dreiknotiger k3s-Cluster',
+        'FluxCD für GitOps-Abläufe',
+        'CloudNativePG für verteilte PostgreSQL-Workloads',
+        'Longhorn für verteilten Speicher',
       ],
     },
-    technologies: ['Angular', 'TypeScript'],
+    technologies: ['Kubernetes', 'k3s', 'FluxCD', 'GitOps', 'CloudNativePG', 'Longhorn'],
   },
   {
-    id: 'another-experiment',
-    name: 'Another Experiment',
+    id: 'metavision-opencv-sharp',
+    name: 'metavision',
     description: {
-      en: 'Placeholder for a product, experiment, or case study link.',
-      de: 'Platzhalter für ein Produkt, ein Experiment oder einen Case Study Link.',
+      en: "Master's thesis project exploring microservice architecture through an image-based face extraction system.",
+      de: 'Masterarbeitsprojekt zur Untersuchung einer Microservice-Architektur anhand eines bildbasierten Systems zur Gesichtsextraktion.',
     },
     highlights: {
       en: [
-        'Placeholder user experience detail',
-        'Placeholder system decision',
-        'Placeholder project result',
+        'Microservice architecture with RabbitMQ as the message broker',
+        'Image processing with OpenCV',
+        'SMTP-based email delivery',
+        'React frontend',
       ],
       de: [
-        'Platzhalter für ein UX-Detail',
-        'Platzhalter für eine Systementscheidung',
-        'Platzhalter für ein Projektergebnis',
+        'Microservice-Architektur mit RabbitMQ als Message Broker',
+        'Bildverarbeitung mit OpenCV',
+        'E-Mail-Versand über SMTP',
+        'React-Frontend',
       ],
     },
-    technologies: ['Design systems', 'Web'],
+    technologies: ['.NET', 'Docker', 'System Design', 'React'],
+  },
+  {
+    id: 'studyhubz-exam-sharing',
+    name: 'studyhubz',
+    description: {
+      en: 'Reddit-inspired social platform for sharing past exams and helping students prepare for upcoming exams.',
+      de: 'Reddit-inspirierte soziale Plattform zum Teilen vergangener Prüfungen und zur Vorbereitung auf kommende Klausuren.',
+    },
+    highlights: {
+      en: [
+        'Clean Architecture',
+        'S3 bucket for storing uploaded PDFs',
+        'AI-assisted PDF metadata generation',
+        'More than 10 active users',
+      ],
+      de: [
+        'Clean Architecture',
+        'S3-Bucket zur Speicherung hochgeladener PDFs',
+        'KI-gestützte Generierung von PDF-Metadaten',
+        'Mehr als 10 aktive Nutzer',
+      ],
+    },
+    technologies: ['Angular', 'Tailwind CSS', 'AI', 'Clean Architecture'],
   },
 ] as const satisfies readonly Project[];
