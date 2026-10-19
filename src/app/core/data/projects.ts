@@ -11,7 +11,7 @@ export interface Project {
 export const PROJECTS = [
   {
     id: 'homelab-kubernetes',
-    name: 'Kubernetes homelab',
+    name: 'homelab',
     description: {
       en: 'A three-node k3s cluster used as a learning sandbox, a home for personal projects, and a private alternative to selected cloud services.',
       de: 'Ein dreiknotiger k3s-Cluster als Lernumgebung, zum Hosten persönlicher Projekte und als datenschutzfreundliche Alternative zu ausgewählten Cloud-Diensten.',
